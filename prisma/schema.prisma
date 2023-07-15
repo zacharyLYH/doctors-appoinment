@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Patient_DA {
+  id String @id @default(uuid())
+  name String
+  email String
+  phone String
+  appointments Appointment_DA[] @relation("PatientToAppointment")
+  dateOfBirth DateTime
+  gender String
+  bloodType String
+  height Float
+  weight Float
+  medical_history MedicalHistory_DA[] @relation("PatientToMedicalHistory")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum MedicalHistoryType {
+  Medication
+  Allergy
+  ChronicConditions
+}
+
+model MedicalHistory_DA {
+    id String @id @default(uuid())
+    medicalHistoryType MedicalHistoryType
+    value String
+    additionalNotes String
+    patientId String
+    patient Patient_DA @relation("PatientToMedicalHistory",fields: [patientId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    @@index([patientId])
+}
+
+model Appointment_DA {
+  id String @id @default(uuid())
+  date DateTime
+  time String
+  description String
+  patientId String
+  patient Patient_DA @relation("PatientToAppointment",fields: [patientId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([patientId])
+}
