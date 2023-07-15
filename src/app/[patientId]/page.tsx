@@ -1,5 +1,15 @@
-const Hello = ({ params }: { params: { patientId: string } }) => {
-    return <div>Hi there, {params.patientId}</div>
-}
+import { format } from "date-fns";
 
-export default Hello
+import prismadb from "@/lib/prismadb";
+
+const Hello = async ({ params }: { params: { patientId: string } }) => {
+    const patient = await prismadb.patient_DA.findMany({
+        where: {
+            patientId: params.patientId,
+        },
+    });
+    console.log(patient)
+    return <div>Hello</div>;
+};
+
+export default Hello;
