@@ -10,15 +10,16 @@ datasource db {
 
 model Patient_DA {
   id String @id @default(uuid())
-  name String
+  patientId String
+  name String 
   email String
   phone String
   appointments Appointment_DA[] @relation("PatientToAppointment")
   dateOfBirth DateTime
   gender String
   bloodType String
-  height Float
-  weight Float
+  height String
+  weight String
   medical_history MedicalHistory_DA[] @relation("PatientToMedicalHistory")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
