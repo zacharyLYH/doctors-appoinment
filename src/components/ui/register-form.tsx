@@ -305,6 +305,9 @@ export function RegisterForm() {
                                 />
                             </FormControl>
                             <FormMessage />
+                            <FormDescription>
+                                Only a valid year works!
+                            </FormDescription>
                         </FormItem>
                     )}
                 />

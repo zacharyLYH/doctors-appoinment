@@ -45,6 +45,7 @@ const BirthDateInput: React.FC<BirthDateInputProps> = ({ onSelect }) => {
                 scrollableYearDropdown
                 placeholderText="Click me"
                 className="inline-block bg-white-600 hover:bg-gray-200 text-black font-bold py-2 px-4 rounded cursor-pointer transition-colors duration-300 ease-in-out"
+                yearDropdownItemNumber={90}
             />
             {validationError && <div>{validationError}</div>}
         </div>
