@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z, ZodError } from "zod";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,9 +16,13 @@ const birthDateSchema = z.date().refine(
 
 interface BirthDateInputProps {
     onSelect: (date: Date | null) => void;
+    initialValue?: Date | null;
 }
 
-const BirthDateInput: React.FC<BirthDateInputProps> = ({ onSelect }) => {
+const BirthDateInput: React.FC<BirthDateInputProps> = ({
+    onSelect,
+    initialValue,
+}) => {
     const [birthDate, setBirthDate] = useState<Date | null>(null);
     const [validationError, setValidationError] = useState<string | null>(null);
 
@@ -34,6 +38,12 @@ const BirthDateInput: React.FC<BirthDateInputProps> = ({ onSelect }) => {
             }
         }
     };
+    useEffect(() => {
+        if (initialValue) {
+            const date = new Date(initialValue);
+            setBirthDate(date);
+        }
+    }, [initialValue]);
 
     return (
         <div>
@@ -46,6 +56,7 @@ const BirthDateInput: React.FC<BirthDateInputProps> = ({ onSelect }) => {
                 placeholderText="Click me"
                 className="inline-block bg-white-600 hover:bg-gray-200 text-black font-bold py-2 px-4 rounded cursor-pointer transition-colors duration-300 ease-in-out"
                 yearDropdownItemNumber={90}
+                value={birthDate ? birthDate.toLocaleDateString() : undefined}
             />
             {validationError && <div>{validationError}</div>}
         </div>
