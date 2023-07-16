@@ -1,21 +1,13 @@
-import { format } from "date-fns";
-
-import prismadb from "@/lib/prismadb";
 import DeleteButton from "./deleteButton";
+import DashboardPage from "@/components/dashboard";
 
-const Hello = async ({ params }: { params: { patientId: string } }) => {
-    const patient = await prismadb.patient_DA.findMany({
-        where: {
-            patientId: params.patientId,
-        },
-    });
-    console.log(patient);
+const Dashboard = async ({ params }: { params: { patientId: string } }) => {
     return (
         <div>
-            Hello
+            <DashboardPage />
             <DeleteButton />
         </div>
     );
 };
 
-export default Hello;
+export default Dashboard;
