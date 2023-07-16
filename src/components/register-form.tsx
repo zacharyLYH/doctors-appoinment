@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -30,13 +30,9 @@ import {
 } from "@/components/ui/popover";
 
 import { Input } from "@/components/ui/input";
-import { Calendar } from "@/components/ui/calendar";
 
 import toast from "react-hot-toast";
-import prismadb from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs";
-import { format } from "date-fns";
-import BirthDateInput from "./birth-date-input";
+import BirthDateInput from "./ui/birth-date-input";
 
 const bloodType = [
     { label: "A", value: "a" },
