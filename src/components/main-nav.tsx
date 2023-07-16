@@ -22,8 +22,13 @@ export function MainNav({
         },
         {
             href: `/${params.patientId}/appointments`,
-            label: "Appointments",
+            label: "Make Appointments",
             active: pathName === `/${params.patientId}/appointments`,
+        },
+        {
+            href: `/${params.patientId}/medicalHistory`,
+            label: "Medical History",
+            active: pathName === `/${params.patientId}/medicalHistory`,
         },
         {
             href: `/${params.patientId}/settings`,
