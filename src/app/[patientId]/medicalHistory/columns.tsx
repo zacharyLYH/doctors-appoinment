@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import EditMedicalHistoryButton from "@/components/edit-medical-history-modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 enum MedicalHistoryType {
     Medication,
@@ -23,6 +24,7 @@ export interface MedicalHistorySummary {
     id: string;
     medicalHistoryType: MedicalHistoryType;
     value: string;
+    additionalNotes: string;
 }
 
 export const columns: ColumnDef<MedicalHistorySummary>[] = [
@@ -35,6 +37,10 @@ export const columns: ColumnDef<MedicalHistorySummary>[] = [
         header: "Value",
     },
     {
+        accessorKey: "additionalNotes",
+        header: "Additional Notes",
+    },
+    {
         id: "actions",
         cell: ({ row }) => {
             const [openModal, setOpenModal] = useState(false);
@@ -44,12 +50,30 @@ export const columns: ColumnDef<MedicalHistorySummary>[] = [
             const closeModal = () => {
                 setOpenModal(false);
             };
-            const print = row.original;
+            const rowData = row.original;
+            const onDelete = async (deleteId: string) => {
+                try {
+                    const del = await fetch("/api/deleteMedicalHistory", {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ deleteId: deleteId }),
+                    });
+                    const convertJson = await del.json();
+                    window.location.assign(
+                        `/${convertJson.patientId}/medicalHistory`
+                    );
+                } catch (error) {
+                    toast.error("Something went wrong with registering user");
+                    console.log(error);
+                }
+            };
             return (
                 <>
                     {openModal && (
                         <EditMedicalHistoryButton
-                            historyId={print.id}
+                            historyId={rowData.id}
                             isOpen={openModal}
                             closeModal={closeModal}
                         />
@@ -66,7 +90,9 @@ export const columns: ColumnDef<MedicalHistorySummary>[] = [
                             <DropdownMenuItem onClick={handleClick}>
                                 Update
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => {}}>
+                            <DropdownMenuItem
+                                onClick={() => onDelete(rowData.id)}
+                            >
                                 Delete history
                             </DropdownMenuItem>
                         </DropdownMenuContent>
