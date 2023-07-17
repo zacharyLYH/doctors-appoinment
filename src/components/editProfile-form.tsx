@@ -48,6 +48,7 @@ const genderOptions = [
 ] as const;
 
 const formSchema = z.object({
+    id: z.string(),
     name: z
         .string({ required_error: "Please give your full name." })
         .nonempty(),
@@ -63,32 +64,32 @@ const formSchema = z.object({
     dateOfBirth: z.date(),
 });
 
-const patientProfile = async() => {
-    const profile = await fetch(`/api/getProfile`)
-    return await profile.json()
-}
+const patientProfile = async () => {
+    const profile = await fetch(`/api/getProfile`);
+    return await profile.json();
+};
 
 export function EditProfileForm() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {}
+        defaultValues: {},
     });
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const profileData = await patientProfile();
-            form.reset(profileData); // Set the fetched data as default values
-          } catch (error) {
-            console.error('Error fetching patient profile:', error);
-          }
+            try {
+                const profileData = await patientProfile();
+                form.reset(profileData); // Set the fetched data as default values
+            } catch (error) {
+                console.error("Error fetching patient profile:", error);
+            }
         };
-    
+
         fetchData();
-      }, [form]);
+    }, [form]);
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response = await fetch("/api/register", {
-                method: "POST",
+            const response = await fetch("/api/updateProfile", {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                 },
