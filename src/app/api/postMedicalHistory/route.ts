@@ -11,13 +11,16 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { additionalNotes, value, medicalHistoryType } = body;
         const createHistory = await prismadb.medicalHistory_DA.create({
-            data:{
+            data: {
                 patientId: userId,
                 additionalNotes,
                 value,
-                medicalHistoryType
-            }
-        })
+                medicalHistoryType,
+            },
+        });
         return NextResponse.json(createHistory);
-    } catch (error) {}
+    } catch (error) {
+        console.log("MEDICAL_HISTORY_POST: ", error);
+        return new NextResponse("Internal error", { status: 500 });
+    }
 }
