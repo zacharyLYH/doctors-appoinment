@@ -19,10 +19,11 @@ export const getAllMedicalHistory = async () => {
         },
     });
     const historyItems = entireHistory.map(
-        ({ id, medicalHistoryType, value }) => ({
+        ({ id, medicalHistoryType, value, additionalNotes }) => ({
             id,
             medicalHistoryType: medicalHistoryType as MedicalHistoryType,
             value,
+            additionalNotes,
         })
     );
     return historyItems;
