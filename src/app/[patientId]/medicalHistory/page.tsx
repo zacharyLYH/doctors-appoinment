@@ -16,7 +16,7 @@ const MedicalHistory = async ({
 }) => {
     const data = await getData();
     return (
-        <div className="mt-2 max-w-3xl mx-auto p-4 bg-gray-100 rounded-md shadow-lg">
+        <div className="mt-2 max-w-5xl mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
             <div className="flex flex-col md:flex-row justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">Medical History</h2>
                 <div className="md:ml-auto">
