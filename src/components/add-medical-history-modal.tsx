@@ -61,30 +61,33 @@ const AddMedicalHistoryButton = () => {
     });
     async function onSubmit(values: z.infer<typeof formschema>) {
         try {
-            const createMedicalHistory = await fetch("/api/postMedicalHistory", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
-            })
+            const createMedicalHistory = await fetch(
+                "/api/postMedicalHistory",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(values),
+                }
+            );
             const convertJson = await createMedicalHistory.json();
             window.location.assign(`/${convertJson.patientId}/medicalHistory`);
-        }catch(error){
+        } catch (error) {
             toast.error("Something went wrong with registering user");
             console.log(error);
         }
     }
     return (
         <div>
-            <Button onClick={handleOpenModal}>Open Modal</Button>
+            <Button onClick={handleOpenModal}>Add new</Button>
             {modalOpen && (
                 <Modal isOpen={modalOpen} onClose={handleCloseModal}>
                     <Card className="w-[350px]">
                         <CardHeader>
-                            <CardTitle>Create project</CardTitle>
+                            <CardTitle>New Medical History</CardTitle>
                             <CardDescription>
-                                Deploy your new project in one-click.
+                                Keep your profile up to date!
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
