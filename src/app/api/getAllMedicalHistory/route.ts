@@ -14,10 +14,11 @@ export const GET = async () => {
             },
         });
         const historyItems = entireHistory.map(
-            ({ id, medicalHistoryType, value }) => ({
+            ({ id, medicalHistoryType, value, additionalNotes }) => ({
                 id,
                 medicalHistoryType,
                 value,
+                additionalNotes
             })
         );
         return NextResponse.json(historyItems);
