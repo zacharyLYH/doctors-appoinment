@@ -13,7 +13,7 @@ export async function DELETE(req: Request) {
                 patientId: userId,
             },
         });
-        return NextResponse.json(deleted);
+        return NextResponse.json({ patientId: userId });
     } catch (error) {
         console.log("REGISTER_POST: ", error);
         return new NextResponse("Internal error", { status: 500 });

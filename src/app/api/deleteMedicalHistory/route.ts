@@ -16,7 +16,7 @@ export async function DELETE(req: Request) {
                 id: deleteId,
             },
         });
-        return NextResponse.json(deleted);
+        return NextResponse.json({ patientId: userId });
     } catch (error) {
         console.log("MEDICAL_HISTORY_DELETE: ", error);
         return new NextResponse("Internal error", { status: 500 });
