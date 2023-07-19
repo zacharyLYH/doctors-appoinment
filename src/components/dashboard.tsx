@@ -1,16 +1,13 @@
 import { Metadata } from "next";
-import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MainNav } from "./main-nav";
+import UpcomingAppointment from "./viewAppointments/upcoming-appointment";
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -157,6 +154,9 @@ export default function DashboardPage() {
                                     </CardContent>
                                 </Card>
                             </div>
+                        </TabsContent>
+                        <TabsContent value="upcoming">
+                            <UpcomingAppointment />
                         </TabsContent>
                     </Tabs>
                 </div>
