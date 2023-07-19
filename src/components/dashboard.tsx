@@ -1,13 +1,8 @@
 import { Metadata } from "next";
 
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import UpcomingAppointment from "./viewAppointments/upcoming-appointment";
+import UpcomingAppointment from "./upcomingAppointments/upcoming-appointment";
 
 export const metadata: Metadata = {
     title: "Dashboard",

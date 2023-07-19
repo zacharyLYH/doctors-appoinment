@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { DataTable } from "@/components/viewAppointments/data-table";
-import { columns } from "@/components/viewAppointments/columns";
+import { DataTable } from "@/components/upcomingAppointments/data-table";
+import { columns } from "@/components/upcomingAppointments/columns";
 
 interface UpcomingApps {
     date: Date;
