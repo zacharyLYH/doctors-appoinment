@@ -32,7 +32,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import toast from "react-hot-toast";
-import BirthDateInput from "./ui/birth-date-input";
+import BirthDateInput from "./ui/date-input";
 
 const bloodType = [
     { label: "A", value: "a" },

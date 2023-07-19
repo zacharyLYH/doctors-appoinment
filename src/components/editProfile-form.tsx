@@ -32,7 +32,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import toast from "react-hot-toast";
-import BirthDateInput from "./ui/birth-date-input";
+import DateInput from "./ui/date-input";
 import { useEffect } from "react";
 
 const bloodType = [
@@ -314,11 +314,12 @@ export function EditProfileForm() {
                         <FormItem>
                             <FormLabel>Date of birth</FormLabel>
                             <FormControl>
-                                <BirthDateInput
+                                <DateInput
                                     onSelect={(value) => {
                                         form.setValue("dateOfBirth", value!);
                                     }}
                                     initialValue={field.value}
+                                    type="birthday"
                                 />
                             </FormControl>
                             <FormMessage />

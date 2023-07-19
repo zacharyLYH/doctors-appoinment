@@ -14,26 +14,41 @@ const birthDateSchema = z.date().refine(
     }
 );
 
-interface BirthDateInputProps {
+const appointmentDateSchema = z.date().refine(
+    (value) => {
+        const currentDate = new Date();
+        return value >= currentDate;
+    },
+    {
+        message: "The soonest appointment is today",
+    }
+);
+
+interface DateInputProps {
     onSelect: (date: Date | null) => void;
     initialValue?: Date | null;
+    type: string;
 }
 
-const BirthDateInput: React.FC<BirthDateInputProps> = ({
+const DateInput: React.FC<DateInputProps> = ({
     onSelect,
     initialValue,
+    type,
 }) => {
-    const [birthDate, setBirthDate] = useState<Date | null>(null);
+    const [date, setDate] = useState<Date | null>(null);
     const [validationError, setValidationError] = useState<string | null>(null);
 
-    const handleBirthDateChange = (date: Date | null) => {
-        setBirthDate(date);
+    const handleDateChange = (date: Date | null) => {
+        setDate(date);
         setValidationError(null);
         try {
-            birthDateSchema.parse(date);
+            type === "birthday"
+                ? birthDateSchema.parse(date)
+                : appointmentDateSchema.parse(date);
             onSelect(date);
         } catch (error) {
             if (error instanceof ZodError) {
+                console.log(error.message);
                 setValidationError(error.message);
             }
         }
@@ -41,26 +56,26 @@ const BirthDateInput: React.FC<BirthDateInputProps> = ({
     useEffect(() => {
         if (initialValue) {
             const date = new Date(initialValue);
-            setBirthDate(date);
+            setDate(date);
         }
     }, [initialValue]);
 
     return (
         <div>
             <DatePicker
-                selected={birthDate}
-                onChange={handleBirthDateChange}
+                selected={date}
+                onChange={handleDateChange}
                 dateFormat="yyyy-MM-dd"
                 showYearDropdown
                 scrollableYearDropdown
                 placeholderText="Click me"
                 className="inline-block bg-white-600 hover:bg-gray-200 text-black font-bold py-2 px-4 rounded cursor-pointer transition-colors duration-300 ease-in-out"
                 yearDropdownItemNumber={90}
-                value={birthDate ? birthDate.toLocaleDateString() : undefined}
+                value={date ? date.toLocaleDateString() : undefined}
             />
             {validationError && <div>{validationError}</div>}
         </div>
     );
 };
 
-export default BirthDateInput;
+export default DateInput;
