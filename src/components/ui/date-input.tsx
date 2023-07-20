@@ -17,6 +17,7 @@ const birthDateSchema = z.date().refine(
 const appointmentDateSchema = z.date().refine(
     (value) => {
         const currentDate = new Date();
+        console.log( value)
         return value >= currentDate;
     },
     {

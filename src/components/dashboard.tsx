@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UpcomingAppointment from "./upcomingAppointments/upcoming-appointment";
+import TodaysAppointment from "./todaysAppointments/todays-appointments";
+import PreviousAppointment from "./previousAppointments/previous-appointments";
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -19,9 +21,9 @@ export default function DashboardPage() {
                             Dashboard
                         </h2>
                     </div>
-                    <Tabs defaultValue="overview" className="space-y-4">
+                    <Tabs defaultValue="today" className="space-y-4">
                         <TabsList>
-                            <TabsTrigger value="overview">Overview</TabsTrigger>
+                            <TabsTrigger value="today">Today</TabsTrigger>
                             <TabsTrigger value="upcoming">
                                 Upcoming appointments
                             </TabsTrigger>
@@ -29,8 +31,8 @@ export default function DashboardPage() {
                                 Previous appointments
                             </TabsTrigger>
                         </TabsList>
-                        <TabsContent value="overview" className="space-y-4">
-                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        <TabsContent value="today" className="space-y-4">
+                            {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                                 <Card>
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium">
@@ -148,10 +150,14 @@ export default function DashboardPage() {
                                         </p>
                                     </CardContent>
                                 </Card>
-                            </div>
+                            </div> */}
+                            <TodaysAppointment />
                         </TabsContent>
                         <TabsContent value="upcoming">
                             <UpcomingAppointment />
+                        </TabsContent>
+                        <TabsContent value="previous">
+                            <PreviousAppointment />
                         </TabsContent>
                     </Tabs>
                 </div>
